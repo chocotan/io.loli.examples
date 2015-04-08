@@ -1,7 +1,10 @@
 package io.loli.example.ibatis.model;
 
-public class Clazz {
+import java.io.Serializable;
 
+public class Clazz implements Serializable {
+
+    private static final long serialVersionUID = -6596706097032316916L;
     private Long id;
     private String name;
 
@@ -19,6 +22,10 @@ public class Clazz {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String toString() {
+        return name;
     }
 
 }

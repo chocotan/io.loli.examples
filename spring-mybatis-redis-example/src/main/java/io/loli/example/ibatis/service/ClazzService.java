@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,76 +16,41 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 
 @Service
+@CacheConfig(cacheNames = "clazz")
 public class ClazzService implements IClazzService {
     @Autowired
     private ClazzMapper clazzMapper;
 
-    // public List<Clazz> findAll() {
-    // return clazzMapper.findAll();
-    // }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * io.hime.test.ibatis.service.IClazzService#insert(io.hime.test.ibatis.
-     * model.Clazz)
-     */
     @Transactional
+    @CacheEvict(allEntries = true)
     public void insert(Clazz clazz) {
         clazzMapper.insert(clazz);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * io.hime.test.ibatis.service.IClazzService#update(io.hime.test.ibatis.
-     * model.Clazz)
-     */
+    @Transactional
+    // allEntries=true not working for redis
+    @CacheEvict(allEntries = true, beforeInvocation = true)
     public void update(Clazz clazz) {
         clazzMapper.update(clazz);
-
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see io.hime.test.ibatis.service.IClazzService#findById(java.lang.Long)
-     */
     public Clazz findById(Long id) {
         return clazzMapper.findById(id);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see io.hime.test.ibatis.service.IClazzService#deleteById(java.lang.Long)
-     */
     public void deleteById(Long id) {
         clazzMapper.deleteById(id);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * io.hime.test.ibatis.service.IClazzService#findByName(java.lang.String,
-     * com.github.miemiedev.mybatis.paginator.domain.PageBounds)
-     */
-    @Cacheable(value = "redis", key = "#q")
+    @Cacheable(key = "'findByName'.concat(#q).concat('-').concat(#page.page)")
     public List<Clazz> findByName(String q, PageBounds page) {
         return clazzMapper.findByName(q, page);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * io.hime.test.ibatis.service.IClazzService#findAll(com.github.miemiedev
-     * .mybatis.paginator.domain.PageBounds)
-     */
-    public List<Clazz> findAll(PageBounds p) {
+    @Cacheable(key = "''.concat(#page).concat(#limit)")
+    public List<Clazz> findAll(int page, int limit) {
+        PageBounds p = new PageBounds(page, limit);
+
         return clazzMapper.findAll(p);
     }
 

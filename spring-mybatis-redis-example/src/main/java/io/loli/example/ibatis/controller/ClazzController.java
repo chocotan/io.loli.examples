@@ -30,9 +30,7 @@ public class ClazzController {
             @RequestParam(required = false, defaultValue = "10") int limit,
             Model model) {
 
-        PageBounds p = new PageBounds(page, limit);
-
-        List list = clazzService.findAll(p);
+        List list = clazzService.findAll(page, limit);
         // 获得结果集条总数
         PageList pageList = (PageList) list;
 

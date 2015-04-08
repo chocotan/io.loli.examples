@@ -43,7 +43,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-<c:if test="${pagePaginator.prePage eq 1 and pagePaginator.page ne 1}">
+<c:if test="${pagePaginator.page ne 1}">
 上一页: <a href="javascript:search(${pagePaginator.prePage})">${pagePaginator.prePage}</a>  
 </c:if>
 当前页: ${pagePaginator.page}

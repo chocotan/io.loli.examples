@@ -9,22 +9,15 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
         ">
-    <mvc:annotation-driven />
-    <context:component-scan base-package="io.loli.example.ibatis"></context:component-scan>
+   <!--  <mvc:annotation-driven />
+    <bean class="io.loli.example.ibatis.config.MvcConfig"></bean>
+ -->
 
-    <bean
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"></property>
-        <property name="suffix" value=".jsp"></property>
-        <property name="redirectHttp10Compatible" value="false" />
-    </bean>
-
-
-    <mvc:interceptors>
+    <!-- <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <bean
                 class="com.github.miemiedev.mybatis.paginator.springmvc.PageListAttrHandlerInterceptor" />
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors> -->
 </beans>
