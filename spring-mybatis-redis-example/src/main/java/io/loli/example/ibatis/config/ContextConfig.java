@@ -68,8 +68,8 @@ public class ContextConfig {
         SqlSessionFactoryBean ssf = new SqlSessionFactoryBean();
         ssf.setDataSource(dataSource());
         ssf.setConfigLocation(new ClassPathResource("ibatis.xml"));
-        ssf.setMapperLocations(applicationContext
-                .getResources("classpath:ibatis/*.xml"));
+        // ssf.setMapperLocations(applicationContext
+        //        .getResources("classpath:ibatis/*.xml"));
         ssf.setTypeAliasesPackage("io.loli.example.ibatis.mapper");
         return ssf;
 
