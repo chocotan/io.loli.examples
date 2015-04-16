@@ -6,5 +6,6 @@
   <packaging>pom</packaging>
   <modules>
       <module>spring-mybatis-redis-example</module>
+      <module>spring-hibernate-jpa-example</module>
   </modules>
 </project>
