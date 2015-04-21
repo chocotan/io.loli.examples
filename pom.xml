@@ -7,5 +7,6 @@
   <modules>
       <module>spring-mybatis-redis-example</module>
       <module>spring-hibernate-jpa-example</module>
+      <module>spring-mybatis-multids-example</module>
   </modules>
 </project>
